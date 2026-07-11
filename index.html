@@ -1,2 +1,344 @@
-<!DOCTYPE html>
-<html><body><h1>vorlix</h1><p>coming soon</p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>vorlix — AI product studio</title>
+  <meta name="description" content="vorlix is an AI product studio in Seoul, building focused AI tools for specific, underserved problems — starting with language learning.">
+  <meta name="theme-color" content="#1a1917">
+  <link rel="canonical" href="https://vorlix.ai/">
+
+  <meta property="og:title" content="vorlix — AI product studio">
+  <meta property="og:description" content="Focused AI tools for specific, underserved problems — starting with language learning.">
+  <meta property="og:url" content="https://vorlix.ai/">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1917'/%3E%3Cpath d='M8.5 11 16 23 23.5 11' fill='none' stroke='%2343bcaa' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin>
+
+  <!-- Marks the document as JS-capable before first paint, so CSS only
+       hides reveal targets when the script that reveals them will run. -->
+  <script>document.documentElement.classList.add('js')</script>
+
+  <style>
+    /* ============ 1. TOKENS — the entire design system ============ */
+    :root {
+      --bg: #1a1917;        /* warm charcoal ground            */
+      --surface: #201e1b;   /* card, one step off the ground   */
+      --line: rgba(245, 243, 239, 0.08);
+      --text: #f5f3ef;      /* 15.85:1 on --bg                 */
+      --text-2: #b0aaa1;    /* 7.62:1 on --bg, 7.21 on surface */
+      --accent: #43bcaa;    /* 7.54:1 on --bg, 7.14 on surface */
+
+      /* 8px-base spacing scale */
+      --s-1: 0.5rem;   /*   8 */
+      --s-2: 1rem;     /*  16 */
+      --s-3: 1.5rem;   /*  24 */
+      --s-4: 2rem;     /*  32 */
+      --s-5: 3rem;     /*  48 */
+      --s-6: 4rem;     /*  64 */
+      --section-gap: clamp(6rem, 4.5rem + 6vw, 8rem);  /* 96 → 128 */
+
+      --col: 41.25rem; /* 660px content column */
+    }
+
+    /* ============ 2. RESET ============ */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, ul { margin: 0; }
+    ul[role="list"] { list-style: none; padding: 0; }
+    svg { display: block; }
+    a { color: inherit; }
+
+    /* ============ 3. BASE ============ */
+    html {
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo",
+        "Malgun Gothic", sans-serif;
+      font-size: 1.0625rem;   /* 17px */
+      line-height: 1.7;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    p { text-wrap: pretty; }
+    :lang(ko) { word-break: keep-all; }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .container {
+      width: min(var(--col), 100% - 3rem);
+      margin-inline: auto;
+    }
+
+    /* ============ 4. SKIP LINK ============ */
+    .skip-link {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      transform: translateY(calc(-100% - 1.5rem));
+    }
+    .skip-link:focus { transform: none; }
+
+    /* ============ 5. HERO ============ */
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      align-content: center;
+      padding-block: var(--s-6);
+    }
+    .mark {
+      width: 2.5rem;
+      height: auto;
+      color: var(--accent);
+      margin-bottom: var(--s-4);
+    }
+    /* pathLength="1" normalizes the path to length 1, so dash values
+       need no measuring: offset 1 = invisible, 0 = fully drawn. */
+    .mark path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+    .wordmark {
+      font-size: clamp(4.75rem, 2.75rem + 11.5vw, 9rem);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+    .tagline {
+      margin-top: var(--s-3);
+      font-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.3125rem);
+      line-height: 1.5;
+      letter-spacing: -0.011em;
+      color: var(--text-2);
+    }
+
+    /* ============ 6. SECTIONS ============ */
+    .section { padding-top: var(--section-gap); }
+    .label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: var(--s-4);
+    }
+
+    /* ============ 7. PRODUCT CARD ============ */
+    /* auto-fit: one card spans the column; future siblings pack
+       side-by-side at >=280px each with no CSS changes. */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr));
+      gap: var(--s-3);
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: clamp(1.5rem, 1.05rem + 1.9vw, 2rem);
+    }
+    .card-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: var(--s-2);
+    }
+    .card-title {
+      font-size: 1.625rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: var(--s-1);
+    }
+    .card-desc {
+      color: var(--text-2);
+      margin-bottom: var(--s-4);
+      max-width: 52ch;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      margin-top: auto;          /* pins the button to the card foot */
+      min-height: 2.75rem;       /* 44px touch target */
+      padding: 0.5rem 1.125rem;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    /* ============ 8. ABOUT ============ */
+    .about-ko {
+      margin-top: var(--s-3);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-2);
+    }
+
+    /* ============ 9. FOOTER ============ */
+    .footer {
+      margin-top: var(--section-gap);
+      border-top: 1px solid var(--line);
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-2) var(--s-4);
+      padding-block: var(--s-5);
+    }
+    .footer-mail {
+      font-size: 0.9375rem;
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.22em;
+      text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      transition: text-decoration-color 0.15s ease;
+    }
+    .footer-mail:hover { text-decoration-color: var(--accent); }
+    .footer-copy {
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+
+    /* ============ 10. MOTION — every animation opts in here, so
+       prefers-reduced-motion users get a fully static page ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .mark path {
+        stroke-dashoffset: 1;
+        animation: draw 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s forwards;
+      }
+      .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+          transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      .js [data-reveal].is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="container">
+      <svg class="mark" viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+        <path d="M3.5 4 16 22.5 28.5 4" pathLength="1" fill="none"
+          stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1 class="wordmark">vorlix</h1>
+      <p class="tagline">An AI product studio in Seoul.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" aria-labelledby="products-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="products-label">Products</h2>
+        <ul class="product-grid" role="list">
+          <li class="card">
+            <p class="card-eyebrow">First product</p>
+            <h3 class="card-title" lang="ko">다독보카</h3>
+            <p class="card-desc">Vocabulary training for Korea&rsquo;s
+              <span lang="ko">편입영어</span> exam — built for repetition
+              that actually sticks.</p>
+            <a class="btn" href="#">App Store</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="about-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="about-label">About</h2>
+        <p>vorlix builds focused AI tools for specific, underserved problems
+          — starting with language learning, and heading toward cross-border
+          trade. Small products, shipped fast, each one useful on its own.
+          Founded by Dong Yell Lee, a former 3D character artist studying
+          international trade at Kyung Hee University.</p>
+        <p class="about-ko" lang="ko">vorlix는 구체적인 문제를 깊게 파는 AI
+          프로덕트 스튜디오입니다. 언어 학습에서 시작해, 국경을 넘는 무역의
+          영역으로 나아갑니다. 작게 만들고, 빠르게 내놓고, 하나하나 쓸모
+          있게.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="footer-mail" href="mailto:hello@vorlix.ai">hello@vorlix.ai</a>
+      <p class="footer-copy">© 2026 vorlix</p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const targets = document.querySelectorAll('[data-reveal]');
+      const reduceMotion =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target); // reveal once, then stop watching
+            }
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px' }
+      );
+
+      targets.forEach((el) => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
