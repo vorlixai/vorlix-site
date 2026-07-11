@@ -332,10 +332,11 @@
       flex: none;
     }
 
-    /* The phone mount. The screen asset is a resized export of a
+    /* The phone mount. The screen asset is a resized JPEG export of a
        simulator capture from App_screenshots/ (which stays out of git);
        regenerate with:
-       sips --resampleWidth 840 "App_screenshots/<file>.png" --out assets/dadokvoca-screen.png */
+       sips -s format jpeg -s formatOptions 82 "App_screenshots/<file>.png" --out /tmp/full.jpg
+       sips --resampleWidth 840 /tmp/full.jpg --out assets/dadokvoca-home.jpg */
     .phone {
       width: min(17.5rem, 100%);
       justify-self: center;
@@ -512,9 +513,9 @@
             <a class="btn-ghost" href="#">App Store</a>
           </div>
           <figure class="phone">
-            <img class="screen-img" src="assets/dadokvoca-screen.png"
+            <img class="screen-img" src="assets/dadokvoca-home.jpg"
               width="840" height="1826"
-              alt="다독보카 study screen: an English word list with Korean meanings hidden behind bars, revealed by a long press"
+              alt="다독보카 home screen: a 5,675-word, 57-day study plan with overall memorization progress and a D-day countdown"
               loading="lazy" decoding="async">
           </figure>
         </article>
