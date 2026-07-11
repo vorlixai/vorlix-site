@@ -30,11 +30,12 @@
     /* ============ 1. TOKENS — the entire design system ============ */
     :root {
       --bg: #1a1917;        /* warm charcoal ground            */
-      --surface: #201e1b;   /* card, one step off the ground   */
+      --surface: #201e1b;   /* panels, one step off the ground */
       --line: rgba(245, 243, 239, 0.08);
       --text: #f5f3ef;      /* 15.85:1 on --bg                 */
       --text-2: #b0aaa1;    /* 7.62:1 on --bg, 7.21 on surface */
       --accent: #43bcaa;    /* 7.54:1 on --bg, 7.14 on surface */
+      --glow: rgba(67, 188, 170, 0.09);
 
       /* 8px-base spacing scale */
       --s-1: 0.5rem;   /*   8 */
@@ -43,17 +44,19 @@
       --s-4: 2rem;     /*  32 */
       --s-5: 3rem;     /*  48 */
       --s-6: 4rem;     /*  64 */
-      --section-gap: clamp(6rem, 4.5rem + 6vw, 8rem);  /* 96 → 128 */
+      --section-gap: clamp(6rem, 4.5rem + 6vw, 9rem);
 
-      --col: 41.25rem; /* 660px content column */
+      --col: 70rem;          /* 1120px page canvas   */
+      --measure: 41.25rem;   /* 660px reading column */
+      --nav-h: 4rem;
     }
 
     /* ============ 2. RESET ============ */
     *, *::before, *::after { box-sizing: border-box; }
-    body, h1, h2, h3, p, ul { margin: 0; }
-    ul[role="list"] { list-style: none; padding: 0; }
+    body, h1, h2, h3, p, ul, figure { margin: 0; }
     svg { display: block; }
     a { color: inherit; }
+    input, button { font: inherit; }
 
     /* ============ 3. BASE ============ */
     html {
@@ -82,13 +85,21 @@
       width: min(var(--col), 100% - 3rem);
       margin-inline: auto;
     }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
 
     /* ============ 4. SKIP LINK ============ */
     .skip-link {
       position: fixed;
       top: 1rem;
       left: 1rem;
-      z-index: 10;
+      z-index: 100;
       padding: 0.75rem 1rem;
       background: var(--surface);
       border: 1px solid var(--line);
@@ -101,14 +112,113 @@
     }
     .skip-link:focus { transform: none; }
 
-    /* ============ 5. HERO ============ */
+    /* ============ 5. BUTTONS ============ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;             /* 44px touch target */
+      padding: 0.5rem 1.25rem;
+      border: 0;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--bg);                /* 7.54:1 on the teal */
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .btn-primary:hover { background: color-mix(in srgb, var(--accent) 86%, white); }
+    .btn-primary:disabled { opacity: 0.6; cursor: default; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+      padding: 0.5rem 1.125rem;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    /* ============ 6. NAV ============ */
+    .site-head {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-3);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .brand svg { width: 1.125rem; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: var(--s-3); }
+    .nav-links {
+      display: none;
+      gap: var(--s-3);
+      list-style: none;
+      padding: 0;
+    }
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav .btn-primary { min-height: 2.25rem; padding: 0.375rem 1rem; font-size: 0.875rem; }
+    @media (min-width: 640px) {
+      .nav-links { display: flex; }
+    }
+
+    /* ============ 7. HERO — full-bleed identity moment on a quiet
+       teal atmosphere; the only part of the page with no rail ============ */
     .hero {
-      min-height: 100vh;
-      min-height: 100svh;
+      position: relative;
+      min-height: calc(100vh - var(--nav-h));
+      min-height: calc(100svh - var(--nav-h));
       display: grid;
       align-content: center;
       padding-block: var(--s-6);
+      overflow: hidden;
     }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(42rem circle at 76% 18%, var(--glow), transparent 68%);
+      pointer-events: none;
+    }
+    .hero > .container { position: relative; }
     /* The mark scales on the same fluid curve as the wordmark so the
        lockup keeps its proportions from 375px to desktop. */
     .mark {
@@ -121,7 +231,7 @@
        need no measuring: offset 1 = invisible, 0 = fully drawn. */
     .mark path { stroke-dasharray: 1; stroke-dashoffset: 0; }
     .wordmark {
-      font-size: clamp(4.75rem, 2.75rem + 11.5vw, 9rem);
+      font-size: clamp(4.9rem, 2.9rem + 11vw, 10rem);
       font-weight: 600;
       letter-spacing: -0.045em;
       line-height: 0.95;
@@ -134,36 +244,58 @@
       letter-spacing: -0.011em;
       color: var(--text-2);
     }
+    .hero-note {
+      margin-top: var(--s-2);
+      max-width: 46ch;
+      font-size: 1.0625rem;
+      color: var(--text-2);
+    }
+    .hero-cta { margin-top: var(--s-5); }
 
-    /* ============ 6. SECTIONS ============ */
-    .section { padding-top: var(--section-gap); }
+    /* ============ 8. SECTION SYSTEM — hairline rule, label rail on
+       the left, content river on the right ============ */
+    .section {
+      border-top: 1px solid var(--line);
+      padding-block: var(--section-gap);
+      scroll-margin-top: var(--nav-h);
+    }
+    .rail { display: grid; gap: var(--s-4); }
+    @media (min-width: 860px) {
+      .rail { grid-template-columns: 12rem 1fr; gap: var(--s-6); }
+    }
     .label {
       font-size: 0.8125rem;
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--text-2);
-      margin-bottom: var(--s-4);
     }
 
-    /* ============ 7. PRODUCT CARD ============ */
-    /* auto-fit: one card spans the column; future siblings pack
-       side-by-side at >=280px each with no CSS changes. */
-    .product-grid {
+    /* ============ 9. PRODUCT PANEL — one showcase per product; add
+       future products as sibling <article class="panel"> blocks ============ */
+    .panel {
+      position: relative;
+      overflow: hidden;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr));
-      gap: var(--s-3);
-    }
-    .card {
-      display: flex;
-      flex-direction: column;
+      gap: var(--s-5);
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: clamp(1.5rem, 1.05rem + 1.9vw, 2rem);
+      border-radius: 14px;
+      padding: clamp(1.75rem, 1.1rem + 2.6vw, 3rem);
+    }
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(30rem circle at 88% 42%, var(--glow), transparent 70%);
+      pointer-events: none;
+    }
+    .panel > * { position: relative; }
+    @media (min-width: 780px) {
+      .panel { grid-template-columns: 1.15fr 0.85fr; align-items: center; }
     }
     /* One step below the section label — clearly subordinate, not a near-twin. */
-    .card-eyebrow {
+    .panel-eyebrow {
       font-size: 0.6875rem;
       font-weight: 500;
       letter-spacing: 0.14em;
@@ -171,41 +303,127 @@
       color: var(--text-2);
       margin-bottom: var(--s-2);
     }
-    .card-title {
-      font-size: 1.625rem;
+    .panel-title {
+      font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.375rem);
       font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
       margin-bottom: var(--s-1);
     }
-    .card-desc {
+    .panel-desc {
+      color: var(--text-2);
+      max-width: 46ch;
+      margin-bottom: var(--s-3);
+    }
+    .panel-status {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.9375rem;
       color: var(--text-2);
       margin-bottom: var(--s-4);
-      max-width: 52ch;
     }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      align-self: flex-start;
-      margin-top: auto;          /* pins the button to the card foot */
-      min-height: 2.75rem;       /* 44px touch target */
-      padding: 0.5rem 1.125rem;
-      border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-      border-radius: 8px;
-      color: var(--accent);
-      font-size: 0.9375rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
-    }
-    .btn:hover {
-      border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    .panel-status::before {
+      content: "";
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--accent);
+      flex: none;
     }
 
-    /* ============ 8. ABOUT ============ */
+    /* The phone mount. To use a real capture: drop the file at
+       assets/dadokvoca-screen.png (any tall phone screenshot, e.g.
+       1170x2532), delete the .screen markup inside the figure, and
+       replace it with:
+         <img class="screen-img" src="assets/dadokvoca-screen.png"
+              width="1170" height="2532" alt="다독보카 flashcard screen"
+              loading="lazy">
+       then remove aria-hidden from the figure. */
+    .phone {
+      width: min(17.5rem, 100%);
+      justify-self: center;
+      aspect-ratio: 9 / 18.6;
+      background: #151412;
+      border: 1px solid var(--line);
+      border-radius: 2.5rem;
+      padding: 0.625rem;
+      box-shadow: 0 24px 80px -24px rgba(0, 0, 0, 0.55);
+    }
+    .screen, .screen-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 1.9rem;
+      display: block;
+    }
+    .screen-img { object-fit: cover; }
+    .screen {
+      background: var(--bg);
+      padding: 1.75rem 1.375rem 1.375rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .scr-eyebrow {
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+    .scr-word {
+      margin-top: var(--s-4);
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .scr-meaning {
+      margin-top: 0.375rem;
+      font-size: 0.9375rem;
+      color: var(--text-2);
+    }
+    .scr-rule {
+      height: 1px;
+      background: var(--line);
+      margin-block: var(--s-3);
+    }
+    .scr-example {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: var(--text-2);
+    }
+    .scr-dots {
+      display: flex;
+      gap: 0.375rem;
+      margin-top: auto;
+      padding-block: var(--s-3) var(--s-2);
+    }
+    .scr-dots i {
+      width: 0.375rem;
+      height: 0.375rem;
+      border-radius: 50%;
+      background: var(--line);
+    }
+    .scr-dots i.on { background: var(--accent); }
+    .scr-actions { display: flex; gap: 0.5rem; }
+    .scr-actions span {
+      flex: 1;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.625rem 0;
+      border-radius: 0.625rem;
+      border: 1px solid var(--line);
+      color: var(--text-2);
+    }
+    .scr-actions span.on {
+      border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+      color: var(--accent);
+    }
+
+    /* ============ 10. ABOUT ============ */
+    .about-body { max-width: var(--measure); }
     .about-ko {
       margin-top: var(--s-3);
       font-size: 1rem;
@@ -213,19 +431,71 @@
       color: var(--text-2);
     }
 
-    /* ============ 9. FOOTER ============ */
-    .footer {
-      margin-top: var(--section-gap);
-      border-top: 1px solid var(--line);
+    /* ============ 11. WAITLIST ============ */
+    .wait-title {
+      font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 24ch;
     }
+    .wait-ko {
+      margin-top: var(--s-2);
+      font-size: 1.0625rem;
+      color: var(--text-2);
+    }
+    .waitlist-form {
+      margin-top: var(--s-4);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 30rem;
+    }
+    .input {
+      flex: 1;
+      min-width: 14rem;
+      min-height: 2.75rem;
+      padding: 0 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9375rem;
+      transition: border-color 0.15s ease;
+    }
+    .input::placeholder { color: var(--text-2); }
+    .input:hover { border-color: rgba(245, 243, 239, 0.16); }
+    .form-status {
+      margin-top: var(--s-2);
+      font-size: 0.9375rem;
+      color: var(--accent);
+      min-height: 1.6em;
+    }
+    .form-note {
+      margin-top: var(--s-1);
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+    /* ============ 12. FOOTER ============ */
+    .footer { border-top: 1px solid var(--line); }
     .footer-inner {
       display: flex;
       flex-wrap: wrap;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
       gap: var(--s-2) var(--s-4);
       padding-block: var(--s-5);
     }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+    .footer-brand svg { width: 1rem; color: var(--accent); }
     .footer-mail {
       font-size: 0.9375rem;
       color: var(--accent);
@@ -236,14 +506,11 @@
       transition: text-decoration-color 0.15s ease;
     }
     .footer-mail:hover { text-decoration-color: var(--accent); }
-    .footer-copy {
-      font-size: 0.875rem;
-      color: var(--text-2);
-    }
 
-    /* ============ 10. MOTION — every animation opts in here, so
+    /* ============ 13. MOTION — every animation opts in here, so
        prefers-reduced-motion users get a fully static page ============ */
     @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
       .mark path {
         stroke-dashoffset: 1;
         animation: draw 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s forwards;
@@ -263,62 +530,129 @@
     @keyframes draw { to { stroke-dashoffset: 0; } }
   </style>
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="hero">
-    <div class="container">
-      <svg class="mark" viewBox="0 0 32 26" aria-hidden="true" focusable="false">
-        <path d="M3.5 4 16 22.5 28.5 4" pathLength="1" fill="none"
-          stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <h1 class="wordmark">vorlix</h1>
-      <p class="tagline">An AI product studio in Seoul.</p>
-    </div>
+  <header class="site-head">
+    <nav class="nav container" aria-label="Main">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        vorlix
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <a class="btn-primary" href="#waitlist">Get notified</a>
+      </div>
+    </nav>
   </header>
 
   <main id="main">
-    <section class="section" aria-labelledby="products-label">
-      <div class="container" data-reveal>
-        <h2 class="label" id="products-label">Products</h2>
-        <ul class="product-grid" role="list">
-          <li class="card">
-            <p class="card-eyebrow">First product</p>
-            <h3 class="card-title" lang="ko">다독보카</h3>
-            <p class="card-desc">Vocabulary training for Korea&rsquo;s
-              <span lang="ko">편입영어</span> exam — built for repetition
-              that actually sticks.</p>
-            <a class="btn" href="#">App Store</a>
-          </li>
-        </ul>
+    <section class="hero" aria-label="vorlix">
+      <div class="container">
+        <svg class="mark" viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" pathLength="1" fill="none"
+            stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1 class="wordmark">vorlix</h1>
+        <p class="tagline">An AI product studio in Seoul.</p>
+        <p class="hero-note">Our first product, <span lang="ko">다독보카</span>,
+          is almost here — join the launch list and be first in.</p>
+        <p class="hero-cta"><a class="btn-primary" href="#waitlist">Get notified</a></p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="about-label">
-      <div class="container" data-reveal>
+    <section class="section" id="products" aria-labelledby="products-label">
+      <div class="container rail" data-reveal>
+        <h2 class="label" id="products-label">Products</h2>
+        <article class="panel">
+          <div>
+            <p class="panel-eyebrow">First product</p>
+            <h3 class="panel-title" lang="ko">다독보카</h3>
+            <p class="panel-desc">Vocabulary training for Korea&rsquo;s
+              <span lang="ko">편입영어</span> exam — built for repetition
+              that actually sticks.</p>
+            <p class="panel-status">In development — launching soon</p>
+            <a class="btn-ghost" href="#">App Store</a>
+          </div>
+          <figure class="phone" aria-hidden="true">
+            <div class="screen">
+              <p class="scr-eyebrow">Day 12 · <span lang="ko">다독보카</span></p>
+              <p class="scr-word">abundant</p>
+              <p class="scr-meaning" lang="ko">풍부한, 많은</p>
+              <div class="scr-rule"></div>
+              <p class="scr-example">an abundant supply of ideas</p>
+              <div class="scr-dots">
+                <i class="on"></i><i class="on"></i><i></i><i></i><i></i>
+              </div>
+              <div class="scr-actions">
+                <span lang="ko">모름</span><span class="on" lang="ko">암기</span>
+              </div>
+            </div>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-label">
+      <div class="container rail" data-reveal>
         <h2 class="label" id="about-label">About</h2>
-        <p>vorlix builds focused AI tools for specific, underserved problems
-          — starting with language learning, and heading toward cross-border
-          trade. Small products, shipped fast, each one useful on its own.
-          Founded by Dong Yell Lee, a former 3D character artist studying
-          international trade at Kyung Hee University.</p>
-        <p class="about-ko" lang="ko">vorlix는 구체적인 문제를 깊게 파는 AI
-          프로덕트 스튜디오입니다. 언어 학습에서 시작해, 국경을 넘는 무역의
-          영역으로 나아갑니다. 작게 만들고, 빠르게 내놓고, 하나하나 쓸모
-          있게.</p>
+        <div class="about-body">
+          <p>vorlix builds focused AI tools for specific, underserved problems
+            — starting with language learning, and heading toward cross-border
+            trade. Small products, shipped fast, each one useful on its own.
+            Founded by Dong Yell Lee, a former 3D character artist studying
+            international trade at Kyung Hee University.</p>
+          <p class="about-ko" lang="ko">vorlix는 구체적인 문제를 깊게 파는 AI
+            프로덕트 스튜디오입니다. 언어 학습에서 시작해, 국경을 넘는 무역의
+            영역으로 나아갑니다. 작게 만들고, 빠르게 내놓고, 하나하나 쓸모
+            있게.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="waitlist" aria-labelledby="waitlist-label">
+      <div class="container rail" data-reveal>
+        <h2 class="label" id="waitlist-label">Launch list</h2>
+        <div>
+          <p class="wait-title">Be first when <span lang="ko">다독보카</span> ships.</p>
+          <p class="wait-ko" lang="ko">출시 소식을 가장 먼저 받아보세요.</p>
+          <form class="waitlist-form" novalidate>
+            <label class="sr-only" for="wl-email">Email address</label>
+            <input class="input" id="wl-email" name="email" type="email"
+              required autocomplete="email" placeholder="you@example.com">
+            <input class="hp" type="text" name="_gotcha" tabindex="-1"
+              autocomplete="off" aria-hidden="true">
+            <button class="btn-primary" type="submit">Get notified</button>
+          </form>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">One email when it launches. Nothing else.</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
+      <p class="footer-brand">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        © 2026 vorlix
+      </p>
       <a class="footer-mail" href="mailto:hello@vorlix.ai">hello@vorlix.ai</a>
-      <p class="footer-copy">© 2026 vorlix</p>
     </div>
   </footer>
 
   <script>
+    // ---- Scroll reveals -------------------------------------------------
     (() => {
       const targets = document.querySelectorAll('[data-reveal]');
       const reduceMotion =
@@ -342,6 +676,53 @@
       );
 
       targets.forEach((el) => observer.observe(el));
+    })();
+
+    // ---- Waitlist form --------------------------------------------------
+    // TODO: create a free form at https://formspree.io, then paste your
+    // endpoint here, e.g. 'https://formspree.io/f/abcdwxyz'. Until then the
+    // form falls back to opening a pre-filled email to hello@vorlix.ai.
+    (() => {
+      const ENDPOINT = '';
+      const form = document.querySelector('.waitlist-form');
+      if (!form) return;
+      const status = document.querySelector('.form-status');
+      const button = form.querySelector('button');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const email = form.email.value.trim();
+        if (!email || !form.email.checkValidity()) {
+          status.textContent = 'That email doesn’t look right — mind checking it?';
+          return;
+        }
+        if (form._gotcha.value) return; // honeypot tripped: silently drop
+
+        if (!ENDPOINT) {
+          window.location.href =
+            'mailto:hello@vorlix.ai' +
+            '?subject=' + encodeURIComponent('Launch list — 다독보카') +
+            '&body=' + encodeURIComponent('Please add ' + email + ' to the launch list.');
+          status.textContent = 'We opened your mail app — hit send and you’re on the list.';
+          return;
+        }
+
+        button.disabled = true;
+        status.textContent = 'Adding you…';
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) throw new Error('bad response');
+          form.hidden = true;
+          status.textContent = 'You’re on the list. Talk soon.';
+        } catch {
+          status.textContent = 'Something broke — email hello@vorlix.ai and we’ll add you.';
+          button.disabled = false;
+        }
+      });
     })();
   </script>
 </body>
