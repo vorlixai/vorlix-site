@@ -57,6 +57,9 @@
     svg { display: block; }
     a { color: inherit; }
     input, button { font: inherit; }
+    /* keep the hidden attribute authoritative over display rules like
+       .waitlist-form's flex */
+    [hidden] { display: none !important; }
 
     /* ============ 3. BASE ============ */
     html {
@@ -601,11 +604,11 @@
     })();
 
     // ---- Waitlist form --------------------------------------------------
-    // TODO: create a free form at https://formspree.io, then paste your
-    // endpoint here, e.g. 'https://formspree.io/f/abcdwxyz'. Until then the
-    // form falls back to opening a pre-filled email to hello@vorlix.ai.
+    // Submissions land in the Formspree dashboard (notification email:
+    // hello@vorlix.ai). If ENDPOINT is ever emptied, the form falls back
+    // to opening a pre-filled email instead.
     (() => {
-      const ENDPOINT = '';
+      const ENDPOINT = 'https://formspree.io/f/mgogwwez';
       const form = document.querySelector('.waitlist-form');
       if (!form) return;
       const status = document.querySelector('.form-status');
