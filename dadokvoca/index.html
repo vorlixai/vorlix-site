@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>다독보카 편입 - 편입영어 단어장 앱</title>
+  <meta name="description" content="뜻을 가리고 눌러서 확인하는 편입영어 단어장 앱. 편입 빈출 단어 5,675개와 관용구 1,203개를 다회독으로 쌓고, 기출 유형 테스트 6,878문제로 편입 어휘를 완성하세요.">
+  <meta name="theme-color" content="#1a1917">
+  <link rel="canonical" href="https://vorlix.ai/dadokvoca">
+
+  <meta property="og:title" content="다독보카 편입 - 편입영어 단어장 앱">
+  <meta property="og:description" content="뜻을 가리고 눌러서 확인하는 편입영어 단어장. 빈출 단어 5,675개, 관용구 1,203개, 기출 유형 테스트 6,878문제.">
+  <meta property="og:url" content="https://vorlix.ai/dadokvoca">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <!-- TODO: 블랙아웃 스크린샷이 들어오면 이 페이지 전용 og 카드로 교체 -->
+  <meta property="og:image" content="https://vorlix.ai/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="다독보카 편입 - 편입영어 단어장 앱">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1917'/%3E%3Cpath d='M8.5 11 16 23 23.5 11' fill='none' stroke='%2343bcaa' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "다독보카 편입",
+    "operatingSystem": "iOS",
+    "applicationCategory": "EducationApplication",
+    "description": "뜻을 가리고 눌러서 확인하는 편입영어 단어장 앱",
+    "publisher": { "@type": "Organization", "name": "Vorlix", "url": "https://vorlix.ai/" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
+  }
+  </script>
+
+  <script>document.documentElement.classList.add('js')</script>
+
+  <style>
+    /* Shares the main site's token system — see /index.html.
+       This page's accent is the app brand blue:
+       --app (#2B5CE6) is fills and glow only (3.16:1 on the ground —
+       never use it as text); --app-text (#93acf2) is the AAA text
+       variant (7.88:1 on bg, 7.46:1 on surface). */
+    :root {
+      --bg: #1a1917;
+      --surface: #201e1b;
+      --line: rgba(245, 243, 239, 0.08);
+      --text: #f5f3ef;
+      --text-2: #b0aaa1;
+      --app: #2B5CE6;
+      --app-text: #93acf2;
+      --glow: rgba(43, 92, 230, 0.13);
+      --col: 70rem;
+      --measure: 41.25rem;
+      --nav-h: 4rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, figure { margin: 0; }
+    svg, img { display: block; }
+    a { color: inherit; }
+    button { font: inherit; }
+
+    html {
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo",
+        "Malgun Gothic", sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    p { text-wrap: pretty; }
+    :lang(ko) { word-break: keep-all; }
+
+    ::selection { background: var(--app-text); color: var(--bg); }
+    :focus-visible { outline: 2px solid var(--app-text); outline-offset: 3px; }
+
+    .container { width: min(var(--col), 100% - 3rem); margin-inline: auto; }
+
+    .skip-link {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--app-text);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      transform: translateY(calc(-100% - 1.5rem));
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-head { border-bottom: 1px solid var(--line); }
+    .nav { height: var(--nav-h); display: flex; align-items: center; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .brand svg { width: 1.125rem; color: #43bcaa; }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding-block: clamp(4.5rem, 3rem + 6vw, 7.5rem);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(36rem circle at 82% 12%, var(--glow), transparent 68%);
+      pointer-events: none;
+    }
+    .hero > .container { position: relative; }
+    .hero h1 {
+      font-size: clamp(2rem, 1.4rem + 3.2vw, 3.25rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      max-width: 18ch;
+    }
+    .hero-sub {
+      margin-top: var(--s-3, 1.5rem);
+      max-width: 44ch;
+      color: var(--text-2);
+    }
+
+    /* 눌러서 확인 데모 — 앱의 핵심 동작을 그대로 체험 */
+    .demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding: 0.875rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: border-color 0.15s ease;
+    }
+    .demo-word { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+    .demo-meaning {
+      font-size: 1rem;
+      padding: 0.125rem 0.625rem;
+      border-radius: 6px;
+      color: transparent;
+      background: #0d0d0c;
+      transition: color 0.12s ease, background-color 0.12s ease;
+    }
+    .demo:active { border-color: color-mix(in srgb, var(--app) 60%, transparent); }
+    .demo:active .demo-meaning { color: var(--text); background: transparent; }
+    .demo-hint {
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-2);
+    }
+
+    .store {
+      display: inline-block;
+      margin-top: 2.5rem;
+      border-radius: 8px;
+    }
+    .store img { height: 3.375rem; width: auto; }
+    .store-note {
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+
+    /* ---- Section system ---- */
+    .section {
+      border-top: 1px solid var(--line);
+      padding-block: clamp(4.5rem, 3.5rem + 4vw, 7rem);
+    }
+    .label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ---- Features ---- */
+    .features { display: grid; gap: 1rem; }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+    }
+    .feature-num {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--app-text);
+    }
+    .feature h3 {
+      margin-top: 0.875rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.35;
+    }
+    .feature p { margin-top: 0.625rem; font-size: 1rem; color: var(--text-2); }
+    @media (min-width: 860px) {
+      .features { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    }
+
+    /* ---- Screenshots ---- */
+    .shots {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 0.25rem 0.25rem 1rem;
+      scrollbar-width: none;
+    }
+    .shots::-webkit-scrollbar { display: none; }
+    .shot {
+      flex: none;
+      width: min(16rem, 74vw);
+      scroll-snap-align: center;
+    }
+    .frame {
+      background: #151412;
+      border: 1px solid var(--line);
+      border-radius: 2.25rem;
+      padding: 0.5rem;
+      box-shadow: 0 20px 60px -24px rgba(0, 0, 0, 0.55);
+    }
+    .frame img { width: 100%; height: auto; border-radius: 1.75rem; }
+    @media (min-width: 900px) {
+      .shots { justify-content: center; overflow: visible; }
+    }
+
+    /* ---- Pricing ---- */
+    .price-line {
+      max-width: var(--measure);
+      font-size: clamp(1.1875rem, 1.05rem + 0.7vw, 1.4375rem);
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+
+    /* ---- Footer ---- */
+    .footer { border-top: 1px solid var(--line); }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      padding-block: 3rem;
+    }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+    .footer-brand svg { width: 1rem; color: #43bcaa; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
+    .footer-links a {
+      font-size: 0.9375rem;
+      color: var(--app-text);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.22em;
+      text-decoration-color: color-mix(in srgb, var(--app-text) 45%, transparent);
+      transition: text-decoration-color 0.15s ease;
+    }
+    .footer-links a:hover { text-decoration-color: var(--app-text); }
+
+    /* ---- Motion (opt-in only) ---- */
+    @media (prefers-reduced-motion: no-preference) {
+      .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+          transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      .js [data-reveal].is-visible { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="site-head">
+    <nav class="nav container" aria-label="Main">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        vorlix
+      </a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <h1>뜻을 가리고 외우는 편입 단어장</h1>
+        <p class="hero-sub">종이 단어장으로 외우던 그 방식 그대로. 한 화면에서
+          여러 단어를 가리고, 확인하고, 빠르게 회독을 쌓으세요.</p>
+
+        <button class="demo" type="button">
+          <span class="demo-word" lang="en">abate</span>
+          <span class="demo-meaning">가라앉다, 줄어들다</span>
+        </button>
+        <p class="demo-hint">검은 막대를 꾹 눌러보세요</p>
+
+        <!-- ==================================================================
+             TODO(출시 후): 아래 href를 실제 App Store 링크로 교체하세요.
+             예: https://apps.apple.com/kr/app/id0000000000
+             출시 전까지는 메인 페이지의 출시 알림(waitlist)으로 연결됩니다.
+             ================================================================== -->
+        <a class="store" href="/#waitlist">
+          <img src="/assets/dadokvoca/appstore-badge-kr.svg"
+            width="130" height="40" alt="App Store에서 다운로드">
+        </a>
+        <p class="store-note">Day 1~3 무료 체험</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="features-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="features-label" lang="en">Features</h2>
+        <div class="features">
+          <article class="feature">
+            <p class="feature-num">01</p>
+            <h3>가리고, 눌러서 확인</h3>
+            <p>뜻은 검은 막대로 가려져 있고, 화면을 누르는 동안만 보여요.
+              카드 앱처럼 한 장씩 넘기지 않고 책처럼 훑습니다.</p>
+          </article>
+          <article class="feature">
+            <p class="feature-num">02</p>
+            <h3>편입에 필요한 전부</h3>
+            <p>빈출 단어 5,675개(57 Day), 관용구 1,203개(40 Day),
+              원어민 발음과 예문까지.</p>
+          </article>
+          <article class="feature">
+            <p class="feature-num">03</p>
+            <h3>기출 유형 테스트 6,878문제</h3>
+            <p>동의어, 뜻 고르기, 다른 의미, 빈칸 채우기. 틀린 건
+              오답노트로 자동 수집.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="shots-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="shots-label" lang="en">Screens</h2>
+        <!-- ==================================================================
+             TODO(스크린샷): 새 캡처가 App_screenshots/에 들어오면
+             최적화해서 assets/dadokvoca/{blackout,testquiz}.jpg 로 추가하고
+             아래 주석 슬롯을 해제하세요. 순서는 blackout(메인) → home →
+             testquiz 입니다.
+             ================================================================== -->
+        <div class="shots">
+          <!--
+          <figure class="shot">
+            <div class="frame">
+              <img src="/assets/dadokvoca/blackout.jpg" width="840" height="1825"
+                alt="다독보카 편입 학습 화면 — 뜻이 검은 막대로 가려진 단어 목록" loading="lazy" decoding="async">
+            </div>
+          </figure>
+          -->
+          <figure class="shot">
+            <div class="frame">
+              <img src="/assets/dadokvoca-home.jpg" width="840" height="1825"
+                alt="다독보카 편입 홈 화면 — 5,675단어 57일 학습 플랜과 전체 암기 진도"
+                loading="lazy" decoding="async">
+            </div>
+          </figure>
+          <!--
+          <figure class="shot">
+            <div class="frame">
+              <img src="/assets/dadokvoca/testquiz.jpg" width="840" height="1825"
+                alt="다독보카 편입 기출 유형 테스트 화면" loading="lazy" decoding="async">
+            </div>
+          </figure>
+          -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="pricing-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="pricing-label" lang="en">Pricing</h2>
+        <p class="price-line">다운로드 무료. Day 1~3 무료 체험 후, 교재 한 권
+          값의 한 번 결제로 평생 전체 이용.</p>
+        <div class="chips">
+          <span class="chip">구독 없음</span>
+          <span class="chip">광고 없음</span>
+          <span class="chip">회원가입 없음</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        © 2026 vorlix
+      </p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/dadokvoca/privacy">개인정보처리방침</a>
+        <a href="mailto:hello@vorlix.ai">hello@vorlix.ai</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const targets = document.querySelectorAll('[data-reveal]');
+      const reduceMotion =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px' }
+      );
+
+      targets.forEach((el) => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
