@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>다독보카 편입 개인정보처리방침</title>
+  <meta name="description" content="iOS 앱 다독보카 편입의 개인정보처리방침. 앱은 어떠한 개인정보도 수집하지 않습니다.">
+  <meta name="theme-color" content="#1a1917">
+  <link rel="canonical" href="https://vorlix.ai/dadokvoca/privacy">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1917'/%3E%3Cpath d='M8.5 11 16 23 23.5 11' fill='none' stroke='%2343bcaa' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin>
+
+  <style>
+    /* Shares the main site's token system — see /index.html */
+    :root {
+      --bg: #1a1917;
+      --surface: #201e1b;
+      --line: rgba(245, 243, 239, 0.08);
+      --text: #f5f3ef;
+      --text-2: #b0aaa1;
+      --accent: #43bcaa;
+      --col: 70rem;
+      --measure: 41.25rem;
+      --nav-h: 4rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, p { margin: 0; }
+    svg { display: block; }
+
+    html {
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo",
+        "Malgun Gothic", sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    p { text-wrap: pretty; }
+    :lang(ko) { word-break: keep-all; }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .container { width: min(var(--col), 100% - 3rem); margin-inline: auto; }
+
+    .skip-link {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      transform: translateY(calc(-100% - 1.5rem));
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-head { border-bottom: 1px solid var(--line); }
+    .nav {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: inherit;
+      text-decoration: none;
+    }
+    .brand svg { width: 1.125rem; color: var(--accent); }
+
+    .policy {
+      max-width: var(--measure);
+      padding-block: clamp(4rem, 3rem + 4vw, 6rem);
+    }
+    .policy h1 {
+      font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.375rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .effective {
+      margin-top: 0.75rem;
+      font-size: 0.9375rem;
+      color: var(--text-2);
+    }
+    .policy .intro { margin-top: 3rem; }
+    .policy h2 {
+      margin-top: 3rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.1875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+    .policy a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.22em;
+      text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      transition: text-decoration-color 0.15s ease;
+    }
+    .policy a:hover { text-decoration-color: var(--accent); }
+
+    .footer { border-top: 1px solid var(--line); }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      padding-block: 3rem;
+    }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+    .footer-brand svg { width: 1rem; color: var(--accent); }
+    .footer-mail {
+      font-size: 0.9375rem;
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.22em;
+      text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      transition: text-decoration-color 0.15s ease;
+    }
+    .footer-mail:hover { text-decoration-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="site-head">
+    <nav class="nav container" aria-label="Main">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        vorlix
+      </a>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+    <article class="policy">
+      <h1>다독보카 편입 개인정보처리방침</h1>
+      <p class="effective">시행일: 2026년 7월 17일</p>
+
+      <p class="intro">"다독보카 편입"(이하 "앱")은 Vorlix(개발자: Dong Yell
+        Lee)가 제공하는 iOS 애플리케이션입니다. 본 방침은 앱이 개인정보를
+        어떻게 취급하는지 설명합니다.</p>
+
+      <h2>1. 수집하는 개인정보: 없습니다</h2>
+      <p>앱은 회원가입·로그인 기능이 없고, 자체 서버가 없으며, 어떠한
+        개인정보도 수집하거나 외부로 전송하지 않습니다.</p>
+
+      <h2>2. 기기 내 저장 데이터</h2>
+      <p>학습 기록(암기 표시, 진도, 테스트 결과, 오답노트)과 앱 설정은 모두
+        사용자의 기기 안에만 저장됩니다. 이 데이터는 개발자를 포함한
+        누구에게도 전송되지 않으며, 앱을 삭제하면 함께 삭제됩니다.</p>
+
+      <h2>3. 결제 정보</h2>
+      <p>프리미엄 구매는 Apple App Store의 인앱 결제로 처리됩니다. 개발자는
+        신용카드 번호 등 결제 수단 정보에 접근할 수 없습니다. Apple의
+        개인정보 처리에 대해서는 Apple
+        개인정보처리방침(<a href="https://www.apple.com/legal/privacy/kr/"
+        rel="noopener">https://www.apple.com/legal/privacy/kr/</a>)을
+        참고하세요.</p>
+
+      <h2>4. 제3자 제공·광고·추적</h2>
+      <p>앱은 광고를 표시하지 않고, 분석·추적 도구와 제3자 SDK를 사용하지
+        않으며, 개인정보를 제3자에게 제공하지 않습니다.</p>
+
+      <h2>5. 아동의 개인정보</h2>
+      <p>앱은 연령과 무관하게 어떠한 개인정보도 수집하지 않습니다.</p>
+
+      <h2>6. 방침의 변경</h2>
+      <p>방침이 변경되는 경우 이 페이지에 게시하며, 중요한 변경은 앱
+        업데이트 노트로 알립니다.</p>
+
+      <h2>7. 문의</h2>
+      <p>개인정보 관련 문의:
+        <a href="mailto:hello@vorlix.ai">hello@vorlix.ai</a></p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">
+        <svg viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+          <path d="M3.5 4 16 22.5 28.5 4" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        © 2026 vorlix
+      </p>
+      <a class="footer-mail" href="mailto:hello@vorlix.ai">hello@vorlix.ai</a>
+    </div>
+  </footer>
+</body>
+</html>
