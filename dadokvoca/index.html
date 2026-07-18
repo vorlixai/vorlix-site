@@ -7,14 +7,14 @@
   <title>다독보카 편입 - 편입영어 단어장 앱</title>
   <meta name="description" content="뜻을 가리고 눌러서 확인하는 편입영어 단어장 앱. 편입 빈출 단어 5,675개와 관용구 1,203개를 다회독으로 쌓고, 기출 유형 테스트 6,878문제로 편입 어휘를 완성하세요.">
   <meta name="theme-color" content="#1a1917">
-  <link rel="canonical" href="https://vorlix.ai/dadokvoca">
+  <link rel="canonical" href="https://www.vorlix.ai/dadokvoca">
 
   <meta property="og:title" content="다독보카 편입 - 편입영어 단어장 앱">
   <meta property="og:description" content="뜻을 가리고 눌러서 확인하는 편입영어 단어장. 빈출 단어 5,675개, 관용구 1,203개, 기출 유형 테스트 6,878문제.">
-  <meta property="og:url" content="https://vorlix.ai/dadokvoca">
+  <meta property="og:url" content="https://www.vorlix.ai/dadokvoca">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://vorlix.ai/assets/dadokvoca/og-card.png">
+  <meta property="og:image" content="https://www.vorlix.ai/assets/dadokvoca/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="다독보카 편입 — 뜻을 가리고 외우는 편입 단어장">
@@ -28,13 +28,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin>
 
+  <!-- TODO(출시 후): 아래 JSON-LD에 "url": "https://apps.apple.com/kr/app/id0000000000" 추가 -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "다독보카 편입",
     "operatingSystem": "iOS",
-    "applicationCategory": "EducationApplication",
+    "applicationCategory": "EducationalApplication",
     "description": "뜻을 가리고 눌러서 확인하는 편입영어 단어장 앱",
     "publisher": { "@type": "Organization", "name": "Vorlix", "url": "https://vorlix.ai/" },
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
@@ -150,46 +151,63 @@
       color: var(--text-2);
     }
 
-    /* 눌러서 확인 데모 — 앱의 핵심 동작을 그대로 체험 */
-    .demo {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
+    /* 가리기 데모 — 앱의 핵심 동작을 리스트 그대로 체험. 행마다
+       누르는 동안(:active 또는 JS가 붙이는 .held)만 뜻이 보인다. */
+    .demo-list {
       margin-top: 2rem;
-      padding: 0.875rem 1.25rem;
+      width: min(22rem, 100%);
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 12px;
+      overflow: hidden;
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.8125rem 1.125rem;
+      background: transparent;
+      border: 0;
       color: var(--text);
+      text-align: left;
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
+      -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
-      transition: border-color 0.15s ease;
     }
-    .demo-word { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+    .demo-row + .demo-row { border-top: 1px solid var(--line); }
+    .demo-word { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
     .demo-meaning {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       padding: 0.125rem 0.625rem;
       border-radius: 6px;
       color: transparent;
       background: #0d0d0c;
       transition: color 0.12s ease, background-color 0.12s ease;
     }
-    .demo:active { border-color: color-mix(in srgb, var(--app) 60%, transparent); }
-    .demo:active .demo-meaning { color: var(--text); background: transparent; }
+    .demo-row:active .demo-meaning,
+    .demo-row.held .demo-meaning { color: var(--text); background: transparent; }
     .demo-hint {
       margin-top: 0.75rem;
       font-size: 0.8125rem;
       color: var(--text-2);
     }
 
-    .store {
+    .store-soon {
       display: inline-block;
       margin-top: 2.5rem;
-      border-radius: 8px;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid color-mix(in srgb, var(--app-text) 40%, transparent);
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--app-text);
     }
+    .store { display: block; margin-top: 0.875rem; }
     .store img { height: 3.375rem; width: auto; }
     .store-note {
       margin-top: 0.75rem;
@@ -281,6 +299,85 @@
       color: var(--text-2);
     }
 
+    /* ---- Method ---- */
+    .method-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin-bottom: 2rem;
+    }
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1.75rem;
+    }
+    .step-num {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--app-text);
+    }
+    .step h3 {
+      margin-top: 0.375rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .step p { margin-top: 0.375rem; font-size: 1rem; color: var(--text-2); }
+    @media (min-width: 860px) {
+      .steps { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    }
+
+    /* ---- Captions and pricing detail ---- */
+    .shot figcaption {
+      margin-top: 0.875rem;
+      font-size: 0.875rem;
+      color: var(--text-2);
+      text-align: center;
+    }
+    .price-free { margin-top: 0.75rem; font-size: 1rem; color: var(--text-2); }
+
+    /* ---- FAQ ---- */
+    .faq { max-width: var(--measure); border-top: 1px solid var(--line); }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      padding: 1.125rem 0;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      flex: none;
+      color: var(--text-2);
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p {
+      margin: 0;
+      padding: 0 0 1.25rem;
+      max-width: 60ch;
+      color: var(--text-2);
+    }
+    .faq a {
+      color: var(--app-text);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.22em;
+      text-decoration-color: color-mix(in srgb, var(--app-text) 45%, transparent);
+      transition: text-decoration-color 0.15s ease;
+    }
+    .faq a:hover { text-decoration-color: var(--app-text); }
+
     /* ---- Footer ---- */
     .footer { border-top: 1px solid var(--line); }
     .footer-inner {
@@ -346,21 +443,39 @@
         <p class="hero-sub">종이 단어장으로 외우던 그 방식 그대로. 한 화면에서
           여러 단어를 가리고, 확인하고, 빠르게 회독을 쌓으세요.</p>
 
-        <button class="demo" type="button">
-          <span class="demo-word" lang="en">abate</span>
-          <span class="demo-meaning">가라앉다, 줄어들다</span>
-        </button>
+        <div class="demo-list" role="group" aria-label="가리기 데모 단어 목록">
+          <button class="demo-row" type="button">
+            <span class="demo-word" lang="en">abate</span>
+            <span class="demo-meaning">가라앉다, 줄어들다</span>
+          </button>
+          <button class="demo-row" type="button">
+            <span class="demo-word" lang="en">abridge</span>
+            <span class="demo-meaning">요약하다, 축약하다</span>
+          </button>
+          <button class="demo-row" type="button">
+            <span class="demo-word" lang="en">abhor</span>
+            <span class="demo-meaning">혐오하다</span>
+          </button>
+          <button class="demo-row" type="button">
+            <span class="demo-word" lang="en">adverse</span>
+            <span class="demo-meaning">불리한, 부정적인</span>
+          </button>
+        </div>
         <p class="demo-hint">검은 막대를 꾹 눌러보세요</p>
 
         <!-- ==================================================================
-             TODO(출시 후): 아래 href를 실제 App Store 링크로 교체하세요.
-             예: https://apps.apple.com/kr/app/id0000000000
-             출시 전까지는 메인 페이지의 출시 알림(waitlist)으로 연결됩니다.
+             TODO(출시 후): 앱이 App Store에 게시되면 아래 배지를 다시 링크로
+             바꾸세요. 예:
+             <a class="store" href="https://apps.apple.com/kr/app/id0000000000">
+               <img ... >
+             </a>
+             그리고 위의 "곧 App Store 출시" 라벨(.store-soon)은 제거합니다.
              ================================================================== -->
-        <a class="store" href="/#waitlist">
+        <p class="store-soon">곧 App Store 출시</p>
+        <span class="store">
           <img src="/assets/dadokvoca/appstore-badge-kr.svg"
-            width="130" height="40" alt="App Store에서 다운로드">
-        </a>
+            width="130" height="40" alt="App Store에서 다운로드 배지 (곧 출시)">
+        </span>
         <p class="store-note">Day 1~3 무료 체험</p>
       </div>
     </section>
@@ -391,6 +506,35 @@
       </div>
     </section>
 
+    <section class="section" aria-labelledby="method-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="method-label" lang="en">Method</h2>
+        <p class="method-title">이렇게 공부해요</p>
+        <ol class="steps">
+          <li class="step">
+            <p class="step-num">1단계</p>
+            <h3>읽는다</h3>
+            <p>첫 회독은 뜻을 보면서 눈에 바릅니다.</p>
+          </li>
+          <li class="step">
+            <p class="step-num">2단계</p>
+            <h3>가린다</h3>
+            <p>가리기를 켜고 단어만 보고 뜻을 떠올립니다.</p>
+          </li>
+          <li class="step">
+            <p class="step-num">3단계</p>
+            <h3>덜어낸다</h3>
+            <p>외운 단어는 더블탭으로 체크, 남은 것만 필터로 반복합니다.</p>
+          </li>
+          <li class="step">
+            <p class="step-num">4단계</p>
+            <h3>확인한다</h3>
+            <p>기출 유형 테스트로 점검, 틀린 건 오답노트로 모입니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="shots-label">
       <div class="container" data-reveal>
         <h2 class="label" id="shots-label" lang="en">Screens</h2>
@@ -401,6 +545,7 @@
                 alt="다독보카 편입 학습 화면 — 뜻이 검은 막대로 가려진 단어 목록"
                 loading="lazy" decoding="async">
             </div>
+            <figcaption>뜻을 가리고, 누르는 동안만 확인</figcaption>
           </figure>
           <figure class="shot">
             <div class="frame">
@@ -408,6 +553,7 @@
                 alt="다독보카 편입 홈 화면 — 5,675단어 57일 학습 플랜과 전체 암기 진도"
                 loading="lazy" decoding="async">
             </div>
+            <figcaption>하루 100개씩 57일, 진도가 한눈에</figcaption>
           </figure>
           <figure class="shot">
             <div class="frame">
@@ -415,6 +561,7 @@
                 alt="다독보카 편입 기출 유형 테스트 화면 — 동의어 고르기 문제"
                 loading="lazy" decoding="async">
             </div>
+            <figcaption>편입 기출 유형 그대로 테스트</figcaption>
           </figure>
         </div>
       </div>
@@ -423,12 +570,41 @@
     <section class="section" aria-labelledby="pricing-label">
       <div class="container" data-reveal>
         <h2 class="label" id="pricing-label" lang="en">Pricing</h2>
-        <p class="price-line">다운로드 무료. Day 1~3 무료 체험 후, 교재 한 권
-          값의 한 번 결제로 평생 전체 이용.</p>
+        <p class="price-line">무료로 시작해서, 19,000원 한 번 결제로
+          평생 전체 이용.</p>
+        <p class="price-free">Day 1~3 무료 체험 = 단어 300개 + 관용구 90개
+          + 테스트</p>
         <div class="chips">
           <span class="chip">구독 없음</span>
           <span class="chip">광고 없음</span>
           <span class="chip">회원가입 없음</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="faq-label" lang="en">FAQ</h2>
+        <div class="faq">
+          <details>
+            <summary>기기를 바꾸면 구매가 사라지나요?</summary>
+            <p>아니요. 같은 Apple 계정이면 설정의 구매 복원으로 언제든
+              다시 이용할 수 있어요.</p>
+          </details>
+          <details>
+            <summary>인터넷이 필요한가요?</summary>
+            <p>아니요. 다운로드 후에는 완전히 오프라인으로 동작해요.</p>
+          </details>
+          <details>
+            <summary>안드로이드 버전은 없나요?</summary>
+            <p>지금은 iPhone 전용이에요. 안드로이드는 검토 중입니다.</p>
+          </details>
+          <details>
+            <summary>개인정보를 수집하나요?</summary>
+            <p>아무것도 수집하지 않아요. 학습 기록은 내 기기에만
+              저장됩니다. 자세한 내용은
+              <a href="/dadokvoca/privacy">개인정보처리방침</a>을 참고하세요.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -451,6 +627,20 @@
   </footer>
 
   <script>
+    // ---- 가리기 데모: 누르는 동안만 뜻 표시 ------------------------------
+    // pointerdown/up은 터치(touchstart/touchend), 마우스, 펜을 모두 커버.
+    // CSS의 :active가 기본 동작이고, .held는 그 보강(스크롤 중 취소 등).
+    (() => {
+      document.querySelectorAll('.demo-row').forEach((row) => {
+        const hold = (on) => () => row.classList.toggle('held', on);
+        row.addEventListener('pointerdown', hold(true));
+        ['pointerup', 'pointerleave', 'pointercancel'].forEach((type) =>
+          row.addEventListener(type, hold(false)));
+        row.addEventListener('contextmenu', (e) => e.preventDefault());
+      });
+    })();
+
+    // ---- 스크롤 리빌 ------------------------------------------------------
     (() => {
       const targets = document.querySelectorAll('[data-reveal]');
       const reduceMotion =
