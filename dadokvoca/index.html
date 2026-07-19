@@ -151,25 +151,17 @@
       color: var(--text-2);
     }
 
-    /* 가리기 데모 — 앱의 핵심 동작을 리스트 그대로 체험. 행마다
-       누르는 동안(:active 또는 JS가 붙이는 .held)만 뜻이 보인다. */
+    /* 가리기 데모 — 앱과 동일하게, 카드 안 아무 곳이나 누르고 있는
+       동안 모든 뜻이 보이고 떼면 다시 가려진다. 전체가 버튼 하나. */
     .demo-list {
+      display: block;
       margin-top: 2rem;
       width: min(22rem, 100%);
+      padding: 0;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 12px;
       overflow: hidden;
-    }
-    .demo-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      width: 100%;
-      padding: 0.8125rem 1.125rem;
-      background: transparent;
-      border: 0;
       color: var(--text);
       text-align: left;
       cursor: pointer;
@@ -178,6 +170,13 @@
       -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8125rem 1.125rem;
     }
     .demo-row + .demo-row { border-top: 1px solid var(--line); }
     .demo-word { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
@@ -189,8 +188,8 @@
       background: #0d0d0c;
       transition: color 0.12s ease, background-color 0.12s ease;
     }
-    .demo-row:active .demo-meaning,
-    .demo-row.held .demo-meaning { color: var(--text); background: transparent; }
+    .demo-list:active .demo-meaning,
+    .demo-list.held .demo-meaning { color: var(--text); background: transparent; }
     .demo-hint {
       margin-top: 0.75rem;
       font-size: 0.8125rem;
@@ -299,13 +298,95 @@
       color: var(--text-2);
     }
 
-    /* ---- Method ---- */
-    .method-title {
-      font-size: 1.5rem;
+    /* ---- Section titles and persuasion sections ---- */
+    .sec-title {
+      font-size: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
       font-weight: 600;
       letter-spacing: -0.015em;
-      margin-bottom: 2rem;
+      line-height: 1.3;
+      max-width: 24ch;
+      margin-bottom: 1.25rem;
     }
+    .sec-body { max-width: var(--measure); color: var(--text-2); }
+    .viz-card {
+      margin-top: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+    }
+    .viz { width: 100%; height: auto; display: block; max-width: 34rem; }
+    .viz-caption { margin-top: 1rem; font-size: 0.875rem; color: var(--text-2); }
+    .viz-note { margin-top: 0.75rem; font-size: 0.8125rem; color: var(--text-2); }
+    .duo { display: grid; gap: 1rem; }
+    @media (min-width: 860px) {
+      .duo { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
+      .duo .viz-card { margin-top: 2rem; }
+    }
+    .press-big {
+      font-size: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+    .press-sub { margin-top: 0.75rem; color: var(--text-2); }
+
+    .bar-title { font-size: 0.9375rem; font-weight: 500; margin-bottom: 1.25rem; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .bar-row + .bar-row { margin-top: 1rem; }
+    .bar-label { font-size: 0.9375rem; color: var(--text-2); }
+    .bar-track { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+    .bar-fill {
+      display: flex;
+      align-items: center;
+      height: 1.625rem;
+      border-radius: 6px;
+      background: #59544d;
+      flex: none;
+      min-width: 0;
+    }
+    .bar-fill.app { background: var(--app); }
+    .bar-in {
+      margin-left: auto;
+      padding-right: 0.625rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #f5f3ef;
+    }
+    .bar-val { font-size: 0.9375rem; font-weight: 500; white-space: nowrap; }
+
+    /* ---- Pricing comparison ---- */
+    .compare { display: grid; gap: 1rem; margin-top: 2rem; max-width: 46rem; }
+    @media (min-width: 720px) { .compare { grid-template-columns: 1fr 1fr; } }
+    .cmp {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .cmp-app { border-color: color-mix(in srgb, var(--app) 60%, transparent); }
+    .cmp h3 { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+    .cmp-price { margin-top: 0.375rem; font-size: 1.5rem; font-weight: 600; }
+    .cmp-app .cmp-price { color: var(--app-text); }
+    .cmp-note { margin-top: 0.25rem; font-size: 0.875rem; color: var(--text-2); }
+    .cmp ul {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 1rem 0 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      color: var(--text-2);
+    }
+    .cmp li { display: flex; gap: 0.625rem; }
+    .cmp-app li::before { content: "✓"; color: var(--app-text); flex: none; }
+
+    /* ---- Method ---- */
     .steps {
       list-style: none;
       margin: 0;
@@ -443,25 +524,26 @@
         <p class="hero-sub">종이 단어장으로 외우던 그 방식 그대로. 한 화면에서
           여러 단어를 가리고, 확인하고, 빠르게 회독을 쌓으세요.</p>
 
-        <div class="demo-list" role="group" aria-label="가리기 데모 단어 목록">
-          <button class="demo-row" type="button">
+        <button class="demo-list" type="button"
+          aria-label="가리기 데모: 누르고 있는 동안 모든 뜻이 보입니다">
+          <span class="demo-row">
             <span class="demo-word" lang="en">abate</span>
             <span class="demo-meaning">가라앉다, 줄어들다</span>
-          </button>
-          <button class="demo-row" type="button">
+          </span>
+          <span class="demo-row">
             <span class="demo-word" lang="en">abridge</span>
             <span class="demo-meaning">요약하다, 축약하다</span>
-          </button>
-          <button class="demo-row" type="button">
+          </span>
+          <span class="demo-row">
             <span class="demo-word" lang="en">abhor</span>
             <span class="demo-meaning">혐오하다</span>
-          </button>
-          <button class="demo-row" type="button">
+          </span>
+          <span class="demo-row">
             <span class="demo-word" lang="en">adverse</span>
             <span class="demo-meaning">불리한, 부정적인</span>
-          </button>
-        </div>
-        <p class="demo-hint">검은 막대를 꾹 눌러보세요</p>
+          </span>
+        </button>
+        <p class="demo-hint">카드를 꾹 눌러보세요. 떼면 다시 가려져요</p>
 
         <!-- ==================================================================
              TODO(출시 후): 앱이 App Store에 게시되면 아래 배지를 다시 링크로
@@ -477,6 +559,123 @@
             width="130" height="40" alt="App Store에서 다운로드 배지 (곧 출시)">
         </span>
         <p class="store-note">Day 1~3 무료 체험</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="vocab-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="vocab-label" lang="en">Why vocabulary</h2>
+        <p class="sec-title">편입영어는 어휘 싸움입니다</p>
+        <p class="sec-body">편입영어는 보통 문법, 어휘, 독해, 논리완성으로
+          구성됩니다. 어휘는 동의어 문제로 직접 출제되고, 논리완성과 독해도
+          결국 어휘력이 바탕입니다. 수험가에서 "어휘가 점수의 70%를
+          좌우한다"는 말이 통용될 정도입니다.</p>
+        <div class="duo">
+          <div class="viz-card">
+            <svg class="viz" viewBox="0 0 360 118" role="img"
+              aria-label="구조도: 어휘가 문법, 독해, 논리완성 세 영역의 기반이 된다">
+              <defs>
+                <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4"
+                  markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+                  <path d="M0 0 8 4 0 8Z" fill="#93acf2"/>
+                </marker>
+              </defs>
+              <g fill="#2a2723" stroke="rgba(245,243,239,0.14)">
+                <rect x="4" y="8" width="82" height="34" rx="8"/>
+                <rect x="184" y="8" width="82" height="34" rx="8"/>
+                <rect x="274" y="8" width="82" height="34" rx="8"/>
+              </g>
+              <rect x="94" y="8" width="82" height="34" rx="8" fill="#2B5CE6"/>
+              <g font-size="13.5" font-weight="600" text-anchor="middle" fill="#f5f3ef">
+                <text x="45" y="30">문법</text>
+                <text x="135" y="30" fill="#ffffff">어휘</text>
+                <text x="225" y="30">독해</text>
+                <text x="315" y="30">논리완성</text>
+              </g>
+              <g fill="none" stroke="#93acf2" stroke-width="1.75" marker-end="url(#arw)">
+                <path d="M129 46 C 112 82, 64 82, 46 52"/>
+                <path d="M141 46 C 158 82, 206 82, 224 52"/>
+                <path d="M148 45 C 190 104, 278 102, 314 54"/>
+              </g>
+            </svg>
+            <p class="viz-caption">어휘는 직접 출제 + 모든 영역의 기반</p>
+          </div>
+          <div class="viz-card">
+            <p class="press-big">어휘 20문항, 20분</p>
+            <p class="press-sub">한 문제당 1분. 아는 단어는 3초, 모르는
+              단어는 그냥 틀립니다.</p>
+            <p class="viz-note">전형적인 구성 예시</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="forget-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="forget-label" lang="en">Why repetition</h2>
+        <p class="sec-title">외워도 잊는 이유, 다회독이 답인 이유</p>
+        <p class="sec-body">한 번 본 것은 며칠 안에 대부분 사라집니다.
+          기억을 만드는 건 반복 노출과 스스로 떠올리는 연습, 인지과학에서
+          말하는 인출 연습(retrieval practice)이라는 게 오래된 결론입니다.
+          뜻을 가리고 스스로 떠올리는 다독보카의 방식이 바로 그 인출
+          연습입니다.</p>
+        <div class="viz-card">
+          <svg class="viz" viewBox="0 0 360 216" role="img"
+            aria-label="망각 곡선 개념도: 회독을 거듭할수록 기억이 더 천천히 잊힌다">
+            <g stroke="rgba(245,243,239,0.16)">
+              <line x1="36" y1="18" x2="36" y2="182"/>
+              <line x1="36" y1="182" x2="350" y2="182"/>
+            </g>
+            <g stroke="rgba(245,243,239,0.1)" stroke-dasharray="3 4">
+              <line x1="124" y1="24" x2="124" y2="182"/>
+              <line x1="212" y1="24" x2="212" y2="182"/>
+            </g>
+            <g fill="none" stroke-width="2.25">
+              <path stroke="#857f78" d="M40 24 C 75 120, 120 152, 348 170"/>
+              <path stroke="#5b7de0" d="M124 24 C 168 88, 240 118, 348 134"/>
+              <path stroke="#93acf2" d="M212 24 C 258 60, 306 80, 348 94"/>
+            </g>
+            <g font-size="11" fill="#b0aaa1">
+              <text x="346" y="162" text-anchor="end">1회독</text>
+              <text x="346" y="126" text-anchor="end">2회독</text>
+              <text x="346" y="86" text-anchor="end">3회독</text>
+              <text x="12" y="104" transform="rotate(-90 12 104)"
+                text-anchor="middle">기억 유지율</text>
+              <text x="336" y="200" text-anchor="end">시간</text>
+            </g>
+          </svg>
+          <p class="viz-caption">에빙하우스 망각 곡선 개념도 — 개념 이해를
+            위한 그림입니다</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="speed-label">
+      <div class="container" data-reveal>
+        <h2 class="label" id="speed-label" lang="en">Speed</h2>
+        <p class="sec-title">카드 한 장씩 넘기는 앱과 속도가 다릅니다</p>
+        <p class="sec-body">다회독의 관건은 속도입니다. 카드식 앱은 100단어를
+          훑는 데 100번을 넘겨야 하지만, 다독보카는 한 화면에 여러 단어가
+          리스트로 보여서 페이지 약 13번이면 끝납니다. 같은 시간에 회독 수가
+          몇 배가 되고, 회독 수가 어휘력을 만듭니다.</p>
+        <div class="viz-card">
+          <p class="bar-title">100단어 1회독에 필요한 조작 횟수</p>
+          <div class="bar-row">
+            <p class="bar-label">카드식 앱</p>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 100%;">
+                <span class="bar-in">100번</span>
+              </div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <p class="bar-label">다독보카</p>
+            <div class="bar-track">
+              <div class="bar-fill app" style="width: 13%;"></div>
+              <p class="bar-val">약 13번</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -509,7 +708,7 @@
     <section class="section" aria-labelledby="method-label">
       <div class="container" data-reveal>
         <h2 class="label" id="method-label" lang="en">Method</h2>
-        <p class="method-title">이렇게 공부해요</p>
+        <p class="sec-title">이렇게 공부해요</p>
         <ol class="steps">
           <li class="step">
             <p class="step-num">1단계</p>
@@ -572,13 +771,33 @@
         <h2 class="label" id="pricing-label" lang="en">Pricing</h2>
         <p class="price-line">무료로 시작해서, 19,000원 한 번 결제로
           평생 전체 이용.</p>
+        <div class="compare">
+          <div class="cmp">
+            <h3>단어장 책 한 권 + 문제집 한 권</h3>
+            <p class="cmp-price">3만 원 안팎</p>
+            <p class="cmp-note">일반적인 가격대 기준</p>
+          </div>
+          <div class="cmp cmp-app">
+            <h3>다독보카 편입</h3>
+            <p class="cmp-price">19,000원</p>
+            <p class="cmp-note">한 번 결제, 평생 이용</p>
+            <ul>
+              <li>단어 5,675개</li>
+              <li>관용구 1,203개</li>
+              <li>기출 유형 문제 6,878개</li>
+              <li>원어민 발음</li>
+              <li>오답노트</li>
+              <li>진도 관리</li>
+            </ul>
+          </div>
+        </div>
+        <div class="chips">
+          <span class="chip">Day 1~3 무료 체험</span>
+          <span class="chip">구독 없음, 한 번 결제</span>
+          <span class="chip">광고 없음</span>
+        </div>
         <p class="price-free">Day 1~3 무료 체험 = 단어 300개 + 관용구 90개
           + 테스트</p>
-        <div class="chips">
-          <span class="chip">구독 없음</span>
-          <span class="chip">광고 없음</span>
-          <span class="chip">회원가입 없음</span>
-        </div>
       </div>
     </section>
 
@@ -627,17 +846,28 @@
   </footer>
 
   <script>
-    // ---- 가리기 데모: 누르는 동안만 뜻 표시 ------------------------------
-    // pointerdown/up은 터치(touchstart/touchend), 마우스, 펜을 모두 커버.
-    // CSS의 :active가 기본 동작이고, .held는 그 보강(스크롤 중 취소 등).
+    // ---- 가리기 데모: 카드 안 아무 곳이나 누르는 동안 전체 뜻 표시 -------
+    // 지원 브라우저에서는 pointer 이벤트 하나로 마우스, 터치, 펜을 커버하고
+    // (터치 스크롤이 시작되면 pointercancel이 와서 자동으로 다시 가려짐),
+    // 구형 브라우저는 mouse와 touch 이벤트로 동일하게 동작한다.
+    // touchstart를 passive로 두어 스크롤 제스처를 막지 않는다.
     (() => {
-      document.querySelectorAll('.demo-row').forEach((row) => {
-        const hold = (on) => () => row.classList.toggle('held', on);
-        row.addEventListener('pointerdown', hold(true));
+      const demo = document.querySelector('.demo-list');
+      if (!demo) return;
+      const hold = (on) => () => demo.classList.toggle('held', on);
+      if (window.PointerEvent) {
+        demo.addEventListener('pointerdown', hold(true));
         ['pointerup', 'pointerleave', 'pointercancel'].forEach((type) =>
-          row.addEventListener(type, hold(false)));
-        row.addEventListener('contextmenu', (e) => e.preventDefault());
-      });
+          demo.addEventListener(type, hold(false)));
+      } else {
+        demo.addEventListener('mousedown', hold(true));
+        ['mouseup', 'mouseleave'].forEach((type) =>
+          demo.addEventListener(type, hold(false)));
+        demo.addEventListener('touchstart', hold(true), { passive: true });
+        ['touchend', 'touchcancel'].forEach((type) =>
+          demo.addEventListener(type, hold(false)));
+      }
+      demo.addEventListener('contextmenu', (e) => e.preventDefault());
     })();
 
     // ---- 스크롤 리빌 ------------------------------------------------------
