@@ -273,7 +273,14 @@
     }
     .frame img { width: 100%; height: auto; border-radius: 1.75rem; }
     @media (min-width: 900px) {
-      .shots { justify-content: center; overflow: visible; }
+      .shots {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        justify-content: center;
+        column-gap: 1.5rem;
+        row-gap: 2.5rem;
+        overflow: visible;
+      }
     }
 
     /* ---- Pricing ---- */
@@ -735,6 +742,14 @@
           </figure>
           <figure class="shot">
             <div class="frame">
+              <img src="/assets/dadokvoca/wordlist.jpg" width="840" height="1825"
+                alt="다독보카 편입 단어 목록 화면 — 뜻이 보이는 상태, 외운 단어는 취소선과 체크 표시"
+                loading="lazy" decoding="async">
+            </div>
+            <figcaption>첫 회독은 뜻을 보면서, 외운 건 체크</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="frame">
               <img src="/assets/dadokvoca/home.jpg" width="840" height="1825"
                 alt="다독보카 편입 홈 화면 — 5,675단어 57일 학습 플랜과 전체 암기 진도"
                 loading="lazy" decoding="async">
@@ -748,6 +763,22 @@
                 loading="lazy" decoding="async">
             </div>
             <figcaption>편입 기출 유형 그대로 테스트</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="frame">
+              <img src="/assets/dadokvoca/idiomlist.jpg" width="840" height="1825"
+                alt="다독보카 편입 관용구 목록 화면 — 관용구와 뜻, 이 Day 암기 진도"
+                loading="lazy" decoding="async">
+            </div>
+            <figcaption>관용구 1,203개도 같은 방식으로</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="frame">
+              <img src="/assets/dadokvoca/stats.jpg" width="840" height="1825"
+                alt="다독보카 편입 통계 화면 — 최근 7일 학습량 차트와 57일 진도 그리드"
+                loading="lazy" decoding="async">
+            </div>
+            <figcaption>학습량과 회독 진도를 통계로</figcaption>
           </figure>
         </div>
       </div>
