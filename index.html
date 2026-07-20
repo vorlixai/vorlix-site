@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://www.vorlix.ai/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="vorlix — 편입영어 단어장 앱 다독보카 편입, 곧 출시">
+  <meta property="og:image:alt" content="vorlix — 편입영어 단어장 앱 다독보카 편입">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1917'/%3E%3Cpath d='M8.5 11 16 23 23.5 11' fill='none' stroke='%2343bcaa' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -63,8 +63,7 @@
     svg { display: block; }
     a { color: inherit; }
     input, button { font: inherit; }
-    /* keep the hidden attribute authoritative over display rules like
-       .waitlist-form's flex */
+    /* keep the hidden attribute authoritative over element display rules */
     [hidden] { display: none !important; }
 
     /* ============ 3. BASE ============ */
@@ -384,39 +383,17 @@
       font-size: 1.0625rem;
       color: var(--text-2);
     }
-    .waitlist-form {
+    .store {
+      display: inline-block;
       margin-top: var(--s-4);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      max-width: 30rem;
-    }
-    .input {
-      flex: 1;
-      min-width: 14rem;
-      min-height: 2.75rem;
-      padding: 0 1rem;
-      background: var(--surface);
-      border: 1px solid var(--line);
       border-radius: 8px;
-      color: var(--text);
-      font-size: 0.9375rem;
-      transition: border-color 0.15s ease;
     }
-    .input::placeholder { color: var(--text-2); }
-    .input:hover { border-color: rgba(245, 243, 239, 0.16); }
-    .form-status {
-      margin-top: var(--s-2);
-      font-size: 0.9375rem;
-      color: var(--accent);
-      min-height: 1.6em;
-    }
+    .store img { height: 3.375rem; width: auto; }
     .form-note {
-      margin-top: var(--s-1);
+      margin-top: var(--s-2);
       font-size: 0.875rem;
       color: var(--text-2);
     }
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
     /* ============ 12. FOOTER ============ */
     .footer { border-top: 1px solid var(--line); }
@@ -487,7 +464,8 @@
           <li><a href="#products">Products</a></li>
           <li><a href="#about">About</a></li>
         </ul>
-        <a class="btn-primary" href="#waitlist">출시 알림 받기</a>
+        <a class="btn-primary" href="https://apps.apple.com/kr/app/id6791881126"
+          target="_blank" rel="noopener">App Store에서 받기</a>
       </div>
     </nav>
   </header>
@@ -502,9 +480,11 @@
         </svg>
         <h1 class="wordmark">vorlix</h1>
         <p class="tagline" lang="en">An AI product studio in Seoul.</p>
-        <p class="hero-note">첫 프로덕트 다독보카 편입이 곧 출시됩니다 —
-          등록하고 가장 먼저 만나보세요.</p>
-        <p class="hero-cta"><a class="btn-primary" href="#waitlist">출시 알림 받기</a></p>
+        <p class="hero-note">첫 프로덕트 다독보카 편입이 App Store에
+          출시됐습니다.</p>
+        <p class="hero-cta"><a class="btn-primary"
+          href="https://apps.apple.com/kr/app/id6791881126"
+          target="_blank" rel="noopener">App Store에서 받기</a></p>
       </div>
     </section>
 
@@ -517,7 +497,7 @@
             <h3 class="panel-title">다독보카 편입</h3>
             <p class="panel-desc">편입영어 시험을 위한 어휘 훈련 —
               진짜로 머리에 남는 반복을 위해 만들었습니다.</p>
-            <p class="panel-status">개발 중 — 곧 출시</p>
+            <p class="panel-status">App Store에 출시됨</p>
             <a class="btn-ghost" href="/dadokvoca">자세히 보기</a>
           </div>
           <figure class="phone">
@@ -540,29 +520,23 @@
           <p class="about-en" lang="en">vorlix builds focused AI tools for
             specific, underserved problems — starting with language learning,
             and heading toward cross-border trade. Small products, shipped
-            fast, each one useful on its own. Founded by Dong Yell Lee, a
-            former 3D character artist studying international trade at Kyung
-            Hee University.</p>
+            fast, each one useful on its own.</p>
         </div>
       </div>
     </section>
 
-    <section class="section" id="waitlist" aria-labelledby="waitlist-label">
+    <section class="section" id="download" aria-labelledby="download-label">
       <div class="container rail" data-reveal>
-        <h2 class="label" id="waitlist-label" lang="en">Launch list</h2>
+        <h2 class="label" id="download-label" lang="en">Download</h2>
         <div>
-          <p class="wait-title">다독보카 편입 출시 소식을 가장 먼저 받아보세요.</p>
-          <p class="wait-en" lang="en">Be first when 다독보카 편입 ships.</p>
-          <form class="waitlist-form" novalidate>
-            <label class="sr-only" for="wl-email">이메일 주소</label>
-            <input class="input" id="wl-email" name="email" type="email"
-              required autocomplete="email" placeholder="you@example.com">
-            <input class="hp" type="text" name="_gotcha" tabindex="-1"
-              autocomplete="off" aria-hidden="true">
-            <button class="btn-primary" type="submit">출시 알림 받기</button>
-          </form>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <p class="form-note">출시 때 이메일 딱 한 통, 그게 전부입니다.</p>
+          <p class="wait-title">다독보카 편입, 지금 받아보세요.</p>
+          <p class="wait-en" lang="en">다독보카 편입 is on the App Store.</p>
+          <a class="store" href="https://apps.apple.com/kr/app/id6791881126"
+            target="_blank" rel="noopener">
+            <img src="/assets/dadokvoca/appstore-badge-kr.svg"
+              width="130" height="40" alt="App Store에서 다운로드">
+          </a>
+          <p class="form-note">Day 1~3 무료 체험, 구독 없음</p>
         </div>
       </div>
     </section>
@@ -608,52 +582,6 @@
       targets.forEach((el) => observer.observe(el));
     })();
 
-    // ---- Waitlist form --------------------------------------------------
-    // Submissions land in the Formspree dashboard (notification email:
-    // hello@vorlix.ai). If ENDPOINT is ever emptied, the form falls back
-    // to opening a pre-filled email instead.
-    (() => {
-      const ENDPOINT = 'https://formspree.io/f/mgogwwez';
-      const form = document.querySelector('.waitlist-form');
-      if (!form) return;
-      const status = document.querySelector('.form-status');
-      const button = form.querySelector('button');
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const email = form.email.value.trim();
-        if (!email || !form.email.checkValidity()) {
-          status.textContent = '이메일 주소를 다시 확인해 주세요.';
-          return;
-        }
-        if (form._gotcha.value) return; // honeypot tripped: silently drop
-
-        if (!ENDPOINT) {
-          window.location.href =
-            'mailto:hello@vorlix.ai' +
-            '?subject=' + encodeURIComponent('다독보카 편입 출시 알림 신청') +
-            '&body=' + encodeURIComponent('출시 알림 리스트에 ' + email + ' 추가 부탁드립니다.');
-          status.textContent = '메일 앱이 열렸어요 — 전송하면 등록 완료됩니다.';
-          return;
-        }
-
-        button.disabled = true;
-        status.textContent = '등록 중…';
-        try {
-          const res = await fetch(ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
-          });
-          if (!res.ok) throw new Error('bad response');
-          form.hidden = true;
-          status.textContent = '등록됐습니다. 출시 때 만나요.';
-        } catch {
-          status.textContent = '문제가 생겼어요 — hello@vorlix.ai로 메일 주시면 등록해 드릴게요.';
-          button.disabled = false;
-        }
-      });
-    })();
   </script>
 </body>
 </html>
